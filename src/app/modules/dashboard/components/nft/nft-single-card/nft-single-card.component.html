@@ -7,18 +7,18 @@
   <!-- Description  -->
   <h2 class="text-md mt-6 font-semibold text-foreground">{{ nft.title }}</h2>
   <div class="dflex items-end justify-between text-sm font-semibold text-muted-foreground">
-    Last Bid: {{ nft.last_bid }} ETH
-    <span>{{ nft.price | currency }}</span>
+    Precio unitario: {{ nft.last_bid }} USD
+    <!-- <span>{{ nft.price | currency }}</span> -->
   </div>
   <!-- Buttons -->
   <div class="mt-6 flex items-center justify-between">
     <button
       class="hover:bg-primary-600 flex-none rounded-md bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground">
-      Place a Bid
+      Ver mercado
     </button>
     <button
       class="lex-none rounded-md bg-card px-4 py-2.5 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">
-      View Item
+      Histórico
     </button>
   </div>
 </div>

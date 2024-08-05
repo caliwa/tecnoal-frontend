@@ -1,6 +1,6 @@
 {
-  "name": "angular-tailwind",
-  "displayName": "Angular Tailwind",
+  "name": "Tecnoal",
+  "displayName": "Tecnoal",
   "version": "0.7.0",
   "description": "Angular & Tailwind CSS Admin Dashboard Starter Kit, Free and Open Source",
   "homepage": "https://github.com/lannodev/angular-tailwind#readme",
@@ -49,6 +49,7 @@
     "rxjs": "~7.4.0",
     "sweetalert2": "^11.12.3",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.14.2"
   },
   "devDependencies": {

@@ -3,58 +3,58 @@ import { MenuItem } from '../models/menu.model';
 export class Menu {
   public static pages: MenuItem[] = [
     {
-      group: 'Base',
+      group: 'Panel lateral',
       separator: false,
       items: [
         {
           icon: 'assets/icons/heroicons/outline/chart-pie.svg',
-          label: 'Dashboard',
-          route: '/dashboard',
+          label: 'Productos',
+          route: '/layout/dashboard/',
           children: [
-            { label: 'Nfts', route: '/dashboard/nfts' },
+            { label: 'Certificación productos', route: '/layout/dashboard/producto-certificado' },
             // { label: 'Podcast', route: '/dashboard/podcast' },
           ],
         },
         {
           icon: 'assets/icons/heroicons/outline/lock-closed.svg',
-          label: 'Auth',
+          label: 'Login',
           route: '/auth',
           children: [
-            { label: 'Sign up', route: '/auth/sign-up' },
-            { label: 'Sign in', route: '/auth/sign-in' },
-            { label: 'Forgot Password', route: '/auth/forgot-password' },
-            { label: 'New Password', route: '/auth/new-password' },
-            { label: 'Two Steps', route: '/auth/two-steps' },
+            { label: 'Solicitud registro', route: '/auth/sign-up' },
+            { label: 'Solicitud login', route: '/auth/sign-in' },
+            { label: 'Contraseña olvidada', route: '/auth/forgot-password' },
+            { label: 'Nueva contraseña', route: '/auth/new-password' },
+            { label: 'Doble factor', route: '/auth/two-steps' },
           ],
         },
-        {
-          icon: 'assets/icons/heroicons/outline/shield-exclamation.svg',
-          label: 'Erros',
-          route: '/errors',
-          // children: [
-          //   { label: '404', route: '/errors/404' },
-          //   { label: '500', route: '/errors/500' },
-          // ],
-        },
+        // {
+        //   icon: 'assets/icons/heroicons/outline/shield-exclamation.svg',
+        //   label: 'Erros',
+        //   route: '/errors',
+        //   // children: [
+        //   //   { label: '404', route: '/errors/404' },
+        //   //   { label: '500', route: '/errors/500' },
+        //   // ],
+        // },
       ],
     },
     {
-      group: 'Collaboration',
+      group: 'Administración',
       separator: true,
       items: [
         {
           icon: 'assets/icons/heroicons/outline/download.svg',
-          label: 'Download',
+          label: 'Nube',
           route: '/download',
         },
-        {
-          icon: 'assets/icons/heroicons/outline/gift.svg',
-          label: 'Gift Card',
-          route: '/gift',
-        },
+        // {
+        //   icon: 'assets/icons/heroicons/outline/gift.svg',
+        //   label: 'Gift Card',
+        //   route: '/gift',
+        // },
         {
           icon: 'assets/icons/heroicons/outline/users.svg',
-          label: 'Users',
+          label: 'Usuarios',
           route: '/users',
         },
       ],
@@ -65,22 +65,22 @@ export class Menu {
       items: [
         {
           icon: 'assets/icons/heroicons/outline/cog.svg',
-          label: 'Settings',
+          label: 'Configuración',
           route: '/settings',
         },
         {
           icon: 'assets/icons/heroicons/outline/bell.svg',
-          label: 'Notifications',
+          label: 'Notificaciones',
           route: '/gift',
         },
         {
           icon: 'assets/icons/heroicons/outline/folder.svg',
-          label: 'Folders',
+          label: 'Encarpetado',
           route: '/folders',
           children: [
-            { label: 'Current Files', route: '/folders/current-files' },
-            { label: 'Downloads', route: '/folders/download' },
-            { label: 'Trash', route: '/folders/trash' },
+            { label: 'Directorio', route: '/folders/current-files' },
+            { label: 'Descargas', route: '/folders/download' },
+            { label: 'Papelera', route: '/folders/trash' },
           ],
         },
       ],

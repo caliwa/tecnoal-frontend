@@ -3,6 +3,7 @@ import { MenuItem } from 'src/app/core/models/menu.model';
 import { MenuService } from '../../../services/menu.service';
 import { NavbarSubmenuComponent } from '../navbar-submenu/navbar-submenu.component';
 import { NgFor, NgClass } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-navbar-menu',
@@ -13,6 +14,7 @@ import { NgFor, NgClass } from '@angular/common';
         NgFor,
         NgClass,
         NavbarSubmenuComponent,
+        RouterModule
     ],
 })
 export class NavbarMenuComponent implements OnInit {

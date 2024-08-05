@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { name: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
+    return this.http.post(`${this.apiUrl}/tecnoal/login`, credentials).pipe(
       tap((response: any) => {
         const token = response.token;
         localStorage.setItem('token', token);
@@ -36,7 +36,7 @@ export class AuthService {
   logout(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.apiUrl}/logout`, {}, { headers }).pipe(
+    return this.http.post(`${this.apiUrl}/tecnoal/logout`, {}, { headers }).pipe(
       tap(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('Nombre_Empleado');
