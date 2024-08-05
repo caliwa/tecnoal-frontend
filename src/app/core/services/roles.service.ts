@@ -13,29 +13,29 @@ export class RolesService {
   constructor(private http: HttpClient) { }
 
   obtenerRoles() {
-    const token = localStorage.getItem('token'); 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); 
-    return this.http.get<any[]>(`${this.apiUrl}/roles`, { headers }); 
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any[]>(`${this.apiUrl}/tecnoal/roles`, { headers });
   }
 
   createRole(role: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(`${this.apiUrl}/roles`, role, { headers });
+    return this.http.post<any>(`${this.apiUrl}/tecnoal/roles`, role, { headers });
   }
-  
+
   actualizarRol(id: number, rol: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>(`${this.apiUrl}/roles/update/${id}`, rol, { headers });
+    return this.http.put<any>(`${this.apiUrl}/tecnoal/roles/update/${id}`, rol, { headers });
   }
 
   eliminarRol(id: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<any>(`${this.apiUrl}/roles/${id}`, { headers });
+    return this.http.delete<any>(`${this.apiUrl}/tecnoal-/roles/${id}`, { headers });
   }
-  
-  
+
+
 
 }

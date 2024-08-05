@@ -12,23 +12,23 @@ export class PermissionsService {
 
   constructor(private http: HttpClient) { }
 
-  
+
   obtenerPermisos(){
 
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any[]>(`${this.apiUrl}/permissions`, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/tecnoal/permissions`, { headers });
   }
 
   createPermission(permission: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(`${this.apiUrl}/permissions`, permission, { headers });
+    return this.http.post<any>(`${this.apiUrl}/tecnoal/permissions`, permission, { headers });
   }
 
   actualizarPermiso(id: number, permiso: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>(`${this.apiUrl}/permissions/update/${id}`, permiso, { headers });
+    return this.http.put<any>(`${this.apiUrl}/tecnoal/permissions/update/${id}`, permiso, { headers });
   }
 }

@@ -6,6 +6,9 @@ import { DashboardComponent } from './dashboard.component';
 import { NftComponent } from './pages/nft/nft.component';
 import { PodcastComponent } from './pages/podcast/podcast.component';
 import { ProductoCertificadoTecnoalListComponent } from './pages/producto-certificado-tecnoal-list/producto-certificado-tecnoal-list.component';
+import { RolesPermisosTecnoalComponent } from './pages/roles-permisos-tecnoal/roles-permisos-tecnoal.component';
+
+
 
 const routes: Routes = [
   {
@@ -15,6 +18,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'menu-principal', pathMatch: 'full' },
       { path: 'menu-principal', component: NftComponent },
       { path: 'producto-certificado', component: ProductoCertificadoTecnoalListComponent },
+      { path: 'roles-permisos', component: RolesPermisosTecnoalComponent },
       { path: 'podcast', component: PodcastComponent },
       // { path: '**', redirectTo: 'errors/404' },
     ],

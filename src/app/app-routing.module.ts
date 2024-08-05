@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./modules/dashboard/dashboard.module').then((m) => m.DashboardModule),
   },
+  // {
+  //   path: 'Seguridad',
+  //   component: SeguridadComponent
+  // }
 
   // { path: '**', redirectTo: 'errors/404' },
 ];

@@ -55,7 +55,11 @@ export class Menu {
         {
           icon: 'assets/icons/heroicons/outline/users.svg',
           label: 'Usuarios',
-          route: '/users',
+          route: '/layout/dashboard/',
+          children: [
+            { label: 'Roles/Permisos', route: '/layout/dashboard/roles-permisos' },
+            // { label: 'Podcast', route: '/dashboard/podcast' },
+          ],
         },
       ],
     },
