@@ -1,32 +1,32 @@
-<div class="flex justify-center items-center min-h-screen bg-gray-100">
+<div class="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-800">
   <div class="w-full max-w-7xl px-4">
-    <div class="card bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="card bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden">
       <div class="card-body p-6">
-        <h4 class="text-gray-800 text-2xl font-semibold mb-5">Productos Certificados Tecnoal</h4>
+        <h4 class="text-gray-800 dark:text-gray-200 text-2xl font-semibold mb-5">Productos Certificados Tecnoal</h4>
 
         <!-- Sección para cargar archivo Excel -->
         <div class="mb-4">
-          <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" class="mb-2">
-          <button (click)="uploadExcelData()" class="ml-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+          <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" class="mb-2 text-gray-700 dark:text-gray-300">
+          <button (click)="uploadExcelData()" class="ml-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
             Cargar datos del Excel
           </button>
         </div>
 
         <!-- Tabla para mostrar datos del Excel -->
         <div *ngIf="excelData.length > 0" class="mb-8">
-          <h2 class="text-xl font-semibold mb-2">Datos del Excel</h2>
+          <h2 class="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-200">Datos del Excel</h2>
           <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50 sticky top-0 z-10">
+            <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead class="bg-gray-50 dark:bg-gray-700 sticky top-0 z-10">
                 <tr>
-                  <th *ngFor="let header of excelData[0]" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th *ngFor="let header of excelData[0]" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     {{header}}
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
+              <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                 <tr *ngFor="let row of excelData.slice(1)">
-                  <td *ngFor="let cell of row" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                  <td *ngFor="let cell of row" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">
                     {{cell}}
                   </td>
                 </tr>
@@ -38,72 +38,72 @@
         <!-- Tabla de productos -->
         <div class="relative overflow-x-auto">
           <div class="inline-block min-w-full align-middle">
-            <div class="overflow-x-auto border-b border-gray-200 shadow sm:rounded-lg">
-              <div class="max-h-96 overflow-y-auto mt-0"> <!-- Contenedor con altura máxima y scroll interno, sin margen superior -->
-                <table class="min-w-full divide-y divide-gray-200">
-                  <thead class="bg-gray-50 sticky top-0 z-10">
+            <div class="overflow-x-auto border-b border-gray-200 dark:border-gray-700 shadow sm:rounded-lg">
+              <div class="max-h-96 overflow-y-auto mt-0">
+                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                  <thead class="bg-gray-50 dark:bg-gray-700 sticky top-0 z-10">
                     <tr>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Producto</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sabor</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Análisis Organolépticos</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Color</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición Color</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Apariencia</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición Apariencia</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Textura</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición Textura</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sabor Análisis</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición Sabor</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Olor</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición Olor</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Análisis Físico Químico</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">PH</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición PH</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Brix</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición Brix</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Porcentaje Humedad</th>
-                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">M. de Medición % Humedad</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Estado</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Código</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Producto</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sabor</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Análisis Organolépticos</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Color</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición Color</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Apariencia</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición Apariencia</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Textura</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición Textura</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Sabor Análisis</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición Sabor</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Olor</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición Olor</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Análisis Físico Químico</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">PH</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición PH</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Brix</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición Brix</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Porcentaje Humedad</th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">M. de Medición % Humedad</th>
                     </tr>
                   </thead>
-                  <tbody class="bg-white divide-y divide-gray-200">
+                  <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     <tr *ngFor="let producto of productos">
                       <td class="px-6 py-4 whitespace-nowrap">
                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                              [ngClass]="{'bg-green-100 text-green-800': producto.is_enabled, 'bg-red-100 text-red-800': !producto.is_enabled}">
+                              [ngClass]="{'bg-green-100 text-green-800 dark:bg-green-800 dark:text-green-100': producto.is_enabled, 'bg-red-100 text-red-800 dark:bg-red-800 dark:text-red-100': !producto.is_enabled}">
                           {{ producto.is_enabled ? 'Activo' : 'Inactivo' }}
                         </span>
                       </td>
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button (click)="toggleActivation(producto)"
-                                class="text-indigo-600 hover:text-indigo-900"
-                                [ngClass]="{'text-red-600 hover:text-red-900': producto.is_enabled, 'text-green-600 hover:text-green-900': !producto.is_enabled}">
+                                class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+                                [ngClass]="{'text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300': producto.is_enabled, 'text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300': !producto.is_enabled}">
                           {{ producto.is_enabled ? 'Desactivar' : 'Activar' }}
                         </button>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.codigo }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.producto }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.sabor }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.analisis_organolepticos }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.color }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_color }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.apariencia }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_apariencia }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.textura }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_textura }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.sabor_analisis }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_sabor }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.olor }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_olor }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.analisis_fisico_quimico }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.ph }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_ph }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.brix }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_brix }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.porcentaje_humedad }}</td>
-                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ producto.m_de_medicion_porcentaje_humedad }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.codigo }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.producto }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.sabor }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.analisis_organolepticos }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.color }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_color }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.apariencia }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_apariencia }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.textura }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_textura }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.sabor_analisis }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_sabor }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.olor }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_olor }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.analisis_fisico_quimico }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.ph }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_ph }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.brix }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_brix }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.porcentaje_humedad }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.m_de_medicion_porcentaje_humedad }}</td>
                     </tr>
                   </tbody>
                 </table>
