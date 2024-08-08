@@ -58,6 +58,7 @@ export class Menu {
           route: '/layout/dashboard/',
           children: [
             { label: 'Roles/Permisos', route: '/layout/dashboard/roles-permisos' },
+            { label: 'Usuarios', route: '/layout/dashboard/usuarios' },
             // { label: 'Podcast', route: '/dashboard/podcast' },
           ],
         },

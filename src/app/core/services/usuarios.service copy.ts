@@ -18,20 +18,20 @@ export class UsuariosService {
   obtenerUsuarios() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any[]>(`${this.apiUrl}/tecnoal/usuarios`, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios`, { headers });
   }
 
   registerUsuario(userData: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(`${this.apiUrl}/tecnoal/register`, userData, { headers }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/register`, userData, { headers }).pipe(
       tap(() => {
         this.usuarioRegistradoSubject.next(); // Emitir evento de usuario registrado
       }),
       catchError((error) => {
         // Captura todos los errores del servidor y los relanza
         return throwError(error);
-      }),
+      })
     );
   }
 
@@ -42,15 +42,15 @@ export class UsuariosService {
   resetPassword(userId: string, payload: any) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>(`${this.apiUrl}/tecnoal/reset-password/${userId}`, payload, { headers });
+    return this.http.post<any>(`${this.apiUrl}/reset-password/${userId}`, payload, { headers });
   }
 
   actualizarUsuario(usuario: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     console.log('el rol que se esta enviando es: ', usuario.rol);
-    return this.http.put<any>(`${this.apiUrl}/tecnoal/usuarios/actualizar/${usuario.id}`, usuario, { headers }).pipe(
-      tap(() => this.usuarioActualizado$.next()), // Emitir evento de actualización exitosa
+    return this.http.put<any>(`${this.apiUrl}/usuarios/actualizar/${usuario.id}`, usuario, { headers }).pipe(
+      tap(() => this.usuarioActualizado$.next()) // Emitir evento de actualización exitosa
     );
   }
 
@@ -59,7 +59,7 @@ export class UsuariosService {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http
-      .put<any>(`${this.apiUrl}/tecnoal/usuarios/inactivar/${userId}`, null, { headers })
+      .put<any>(`${this.apiUrl}/usuarios/inactivar/${userId}`, null, { headers })
       .pipe(tap(() => this.usuarioActualizado$.next()));
   }
 }

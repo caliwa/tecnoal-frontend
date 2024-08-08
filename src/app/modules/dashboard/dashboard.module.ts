@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { ProductoCertificadoTecnoalListComponent } from './pages/producto-certificado-tecnoal-list/producto-certificado-tecnoal-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { ProductoCertificadoTecnoalListComponent } from './pages/producto-certif
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    ReactiveFormsModule,
     // ... otros módulos necesarios
   ],
 })

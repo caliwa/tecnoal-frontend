@@ -1,0 +1,40 @@
+<!-- registrarusuarios.component.html -->
+<div class="bg-white rounded-lg shadow-md p-6">
+  <h2 class="text-2xl font-bold mb-6">Restablecer contraseña</h2>
+
+  <div class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Contraseña -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="user.password"
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Contraseña">
+      </div>
+      <!-- Confirmar Contraseña -->
+      <div>
+        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Contraseña</label>
+        <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword"
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Confirmar Contraseña">
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 flex justify-end space-x-4">
+    <button (click)="onCancel()" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+      Cancelar
+    </button>
+    <button (click)="resetPassword()" [disabled]="!isPasswordValid()"
+            class="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed">
+      Restablecer Contraseña
+    </button>
+  </div>
+</div>
+
+<div *ngIf="updatingUser" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+  <div class="text-center">
+    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+    <div class="mt-4 text-white font-semibold">Cargando...</div>
+  </div>
+</div>

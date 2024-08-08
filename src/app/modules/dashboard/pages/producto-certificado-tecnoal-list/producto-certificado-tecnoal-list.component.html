@@ -5,9 +5,12 @@
       <p class="text-gray-800 dark:text-gray-200 text-3xl font-semibold mb-5 font-mono">Productos Certificados Tecnoal</p>
 
         <!-- Sección para cargar archivo Excel -->
+          <button (click)="openModal()" class="mb-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700">
+          Agregar Nuevo Producto
+        </button>
         <div class="mb-4">
           <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" class="mb-2 text-gray-700 dark:text-gray-300">
-          <button (click)="uploadExcelData()" class="ml-8 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <button (click)="uploadExcelData()" class="ml-8 px-4 py-2 bg-primary text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700">
             Cargar datos del Excel
           </button>
         </div>
@@ -108,6 +111,125 @@
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+        </div>
+      <div *ngIf="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div class="relative top-20 mx-auto p-5 border w-full max-w-3xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+          <div class="mt-3 text-center">
+      <h3 class="text-gray-800 dark:text-gray-200 text-3xl font-semibold mb-5 font-mono">Agregar Nuevo Producto</h3>
+            <form [formGroup]="productoForm" (ngSubmit)="onSubmit()" class="mt-2">
+              <!-- Contenedor de la cuadrícula con 3 columnas -->
+              <div class="grid grid-cols-3 gap-4">
+                <!-- Primer fila -->
+                <div>
+                  <label for="codigo" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Código</label>
+                  <input id="codigo" formControlName="codigo" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="producto" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Producto</label>
+                  <input id="producto" formControlName="producto" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="sabor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sabor</label>
+                  <input id="sabor" formControlName="sabor" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+
+                <!-- Segunda fila -->
+                <div>
+                  <label for="analisis_organolepticos" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Análisis Organolépticos</label>
+                  <input id="analisis_organolepticos" formControlName="analisis_organolepticos" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Color</label>
+                  <input id="color" formControlName="color" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="m_de_medicion_color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición Color</label>
+                  <input id="m_de_medicion_color" formControlName="m_de_medicion_color" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+
+                <!-- Tercera fila -->
+                <div>
+                  <label for="apariencia" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Apariencia</label>
+                  <input id="apariencia" formControlName="apariencia" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="m_de_medicion_apariencia" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición Apariencia</label>
+                  <input id="m_de_medicion_apariencia" formControlName="m_de_medicion_apariencia" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="textura" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Textura</label>
+                  <input id="textura" formControlName="textura" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+
+                <!-- Cuarta fila -->
+                <div>
+                  <label for="m_de_medicion_textura" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición Textura</label>
+                  <input id="m_de_medicion_textura" formControlName="m_de_medicion_textura" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="sabor_analisis" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sabor Análisis</label>
+                  <input id="sabor_analisis" formControlName="sabor_analisis" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="m_de_medicion_sabor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición Sabor</label>
+                  <input id="m_de_medicion_sabor" formControlName="m_de_medicion_sabor" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+
+                <!-- Quinta fila -->
+                <div>
+                  <label for="olor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Olor</label>
+                  <input id="olor" formControlName="olor" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="m_de_medicion_olor" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición Olor</label>
+                  <input id="m_de_medicion_olor" formControlName="m_de_medicion_olor" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="analisis_fisico_quimico" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Análisis Físico Químico</label>
+                  <input id="analisis_fisico_quimico" formControlName="analisis_fisico_quimico" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+
+                <!-- Sexta fila -->
+                <div>
+                  <label for="ph" class="block text-sm font-medium text-gray-700 dark:text-gray-300">PH</label>
+                  <input id="ph" formControlName="ph" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="m_de_medicion_ph" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición PH</label>
+                  <input id="m_de_medicion_ph" formControlName="m_de_medicion_ph" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="brix" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Brix</label>
+                  <input id="brix" formControlName="brix" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+
+                <!-- Séptima fila -->
+                <div>
+                  <label for="m_de_medicion_brix" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición Brix</label>
+                  <input id="m_de_medicion_brix" formControlName="m_de_medicion_brix" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="porcentaje_humedad" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Porcentaje Humedad</label>
+                  <input id="porcentaje_humedad" formControlName="porcentaje_humedad" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+                <div>
+                  <label for="m_de_medicion_porcentaje_humedad" class="block text-sm font-medium text-gray-700 dark:text-gray-300">M. de Medición % Humedad</label>
+                  <input id="m_de_medicion_porcentaje_humedad" formControlName="m_de_medicion_porcentaje_humedad" class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none text-sm" required>
+                </div>
+              </div>
+
+              <div class="items-center px-4 py-3">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                  Guardar
+                </button>
+              </div>
+            </form>
+            <div class="items-center px-4 py-3">
+              <button (click)="closeModal()" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300">
+                Cerrar
+              </button>
             </div>
           </div>
         </div>

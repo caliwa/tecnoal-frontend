@@ -1,0 +1,99 @@
+<div class="bg-white rounded-lg shadow-md p-6">
+  <h2 class="text-2xl font-bold mb-6">Registrar usuario</h2>
+
+  <div class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Nombre -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Nombre</label>
+        <input type="text" id="name" [(ngModel)]="user.name" required
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Ingrese su nombre">
+      </div>
+      <!-- Correo electrónico -->
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+        <input type="email" id="email" [(ngModel)]="user.email"
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Ingrese su correo electrónico">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Contraseña -->
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+        <input type="password" id="password" [(ngModel)]="user.password" required
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Ingrese su contraseña">
+      </div>
+      <!-- Confirmar Contraseña -->
+      <div>
+        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirmar Contraseña</label>
+        <input type="password" id="confirmPassword" [(ngModel)]="user.password_confirmation" required
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Confirme su contraseña">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Nombre completo empleado -->
+      <div>
+        <label for="fullName" class="block text-sm font-medium text-gray-700">Nombre completo empleado</label>
+        <input type="text" id="fullName" [(ngModel)]="user.Nombre_Empleado" required
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Ingrese el nombre completo">
+      </div>
+      <!-- Rol -->
+      <div>
+        <label for="role" class="block text-sm font-medium text-gray-700">Rol</label>
+        <select id="role" [(ngModel)]="user.role" required
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+          <option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Usuario SAP -->
+      <div>
+        <label for="userSAP" class="block text-sm font-medium text-gray-700">Usuario SAP</label>
+        <input type="text" id="userSAP" [(ngModel)]="user.usersap"
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Ingrese el usuario SAP">
+      </div>
+      <!-- Contraseña SAP -->
+      <div>
+        <label for="passwordSAP" class="block text-sm font-medium text-gray-700">Contraseña SAP</label>
+        <input type="password" id="passwordSAP" [(ngModel)]="user.usersappassword"
+               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+               placeholder="Ingrese la contraseña SAP">
+      </div>
+    </div>
+
+    <div>
+      <!-- Usuario Aprobador -->
+      <label class="inline-flex items-center">
+        <input type="checkbox" [(ngModel)]="user.EsAprobador"
+               class="rounded border-gray-300 text-primary focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50">
+        <span class="ml-2">Usuario Aprobador</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="mt-8 flex justify-end space-x-4">
+    <button (click)="onCancel()" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+      Cancelar
+    </button>
+    <button (click)="registerUser()" class="px-4 py-2 bg-primary text-white rounded-md text-sm font-medium hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+      Registrar
+    </button>
+  </div>
+</div>
+
+<div *ngIf="registrousuario" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+  <div class="text-center">
+    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary"></div>
+    <div class="mt-4 text-white font-semibold">Cargando...</div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductoCertificadoTecnoal } from '../../models/producto-certificado-tecnoal.model';
 import { ProductoCertificadoTecnoalService } from '../../services/producto-certificado-tecnoal.service';
 import Swal from 'sweetalert2';
@@ -12,13 +13,168 @@ import * as XLSX from 'xlsx';
 export class ProductoCertificadoTecnoalListComponent implements OnInit {
   productos: ProductoCertificadoTecnoal[] = [];
   excelData: any[][] = [];
+  showModal = false;
+  productoForm: FormGroup;
 
-  constructor(private productoService: ProductoCertificadoTecnoalService) {}
+  constructor(private productoService: ProductoCertificadoTecnoalService, private fb: FormBuilder) {
+    this.productoForm = this.fb.group({
+      codigo: ['', Validators.required],
+      producto: ['', Validators.required],
+      sabor: ['', Validators.required],
+      analisis_organolepticos: ['', Validators.required],
+      color: ['', Validators.required],
+      m_de_medicion_color: ['', Validators.required],
+      apariencia: ['', Validators.required],
+      m_de_medicion_apariencia: ['', Validators.required],
+      textura: ['', Validators.required],
+      m_de_medicion_textura: ['', Validators.required],
+      sabor_analisis: ['', Validators.required],
+      m_de_medicion_sabor: ['', Validators.required],
+      olor: ['', Validators.required],
+      m_de_medicion_olor: ['', Validators.required],
+      analisis_fisico_quimico: ['', Validators.required],
+      ph: ['', Validators.required],
+      m_de_medicion_ph: ['', Validators.required],
+      brix: ['', Validators.required],
+      m_de_medicion_brix: ['', Validators.required],
+      porcentaje_humedad: ['', Validators.required],
+      m_de_medicion_porcentaje_humedad: ['', Validators.required],
+    });
+  }
 
   ngOnInit(): void {
     this.loadProductos();
   }
 
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.productoForm.reset();
+  }
+  onSubmit() {
+    if (this.productoForm.valid) {
+      const emptyFields = this.getEmptyFields();
+      if (emptyFields.length > 0) {
+        Swal.fire({
+          title: 'Campos Incompletos',
+          html: `Por favor, complete los siguientes campos:<br>${emptyFields.join('<br>')}`,
+          icon: 'warning',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#007bff',
+        });
+        return;
+      }
+
+      const newProducto: ProductoCertificadoTecnoal = {
+        codigo: this.productoForm.get('codigo')?.value,
+        producto: this.productoForm.get('producto')?.value,
+        sabor: this.productoForm.get('sabor')?.value,
+        analisis_organolepticos: this.productoForm.get('analisis_organolepticos')?.value,
+        color: this.productoForm.get('color')?.value,
+        m_de_medicion_color: this.productoForm.get('m_de_medicion_color')?.value,
+        apariencia: this.productoForm.get('apariencia')?.value,
+        m_de_medicion_apariencia: this.productoForm.get('m_de_medicion_apariencia')?.value,
+        textura: this.productoForm.get('textura')?.value,
+        m_de_medicion_textura: this.productoForm.get('m_de_medicion_textura')?.value,
+        sabor_analisis: this.productoForm.get('sabor_analisis')?.value,
+        m_de_medicion_sabor: this.productoForm.get('m_de_medicion_sabor')?.value,
+        olor: this.productoForm.get('olor')?.value,
+        m_de_medicion_olor: this.productoForm.get('m_de_medicion_olor')?.value,
+        analisis_fisico_quimico: this.productoForm.get('analisis_fisico_quimico')?.value,
+        ph: this.productoForm.get('ph')?.value,
+        m_de_medicion_ph: this.productoForm.get('m_de_medicion_ph')?.value,
+        brix: this.productoForm.get('brix')?.value,
+        m_de_medicion_brix: this.productoForm.get('m_de_medicion_brix')?.value,
+        porcentaje_humedad: this.productoForm.get('porcentaje_humedad')?.value,
+        m_de_medicion_porcentaje_humedad: this.productoForm.get('m_de_medicion_porcentaje_humedad')?.value,
+        is_enabled: true,
+      };
+
+      Swal.fire({
+        title: 'Procesando',
+        text: 'El producto se está enviando al servidor...',
+        icon: 'info',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+      });
+
+      this.productoService.createMassive([newProducto]).subscribe(
+        (result) => {
+          console.log('Resultado:', result);
+          Swal.fire({
+            title: 'Éxito',
+            text: 'El producto ha sido creado correctamente.',
+            icon: 'success',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#007bff',
+          }).then(() => {
+            this.closeModal();
+            this.loadProductos(); // Recargar la lista de productos
+          });
+        },
+        (error) => {
+          console.error('Error al crear el producto:', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al crear el producto.',
+            icon: 'error',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#007bff',
+          });
+        },
+      );
+    } else {
+      Swal.fire({
+        title: 'Envío no válido',
+        text: 'Por favor, ingrese todos los campos del formulario.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#007bff',
+      });
+    }
+  }
+
+  getEmptyFields(): string[] {
+    const emptyFields: string[] = [];
+    Object.keys(this.productoForm.controls).forEach((key) => {
+      const control = this.productoForm.get(key);
+      if (control?.invalid) {
+        emptyFields.push(this.getFieldName(key));
+      }
+    });
+    return emptyFields;
+  }
+
+  getFieldName(key: string): string {
+    const fieldNames: { [key: string]: string } = {
+      codigo: 'Código',
+      producto: 'Producto',
+      sabor: 'Sabor',
+      analisis_organolepticos: 'Análisis Organolépticos',
+      color: 'Color',
+      m_de_medicion_color: 'M. de Medición Color',
+      apariencia: 'Apariencia',
+      m_de_medicion_apariencia: 'M. de Medición Apariencia',
+      textura: 'Textura',
+      m_de_medicion_textura: 'M. de Medición Textura',
+      sabor_analisis: 'Sabor Análisis',
+      m_de_medicion_sabor: 'M. de Medición Sabor',
+      olor: 'Olor',
+      m_de_medicion_olor: 'M. de Medición Olor',
+      analisis_fisico_quimico: 'Análisis Físico Químico',
+      ph: 'PH',
+      m_de_medicion_ph: 'M. de Medición PH',
+      brix: 'Brix',
+      m_de_medicion_brix: 'M. de Medición Brix',
+      porcentaje_humedad: 'Porcentaje Humedad',
+      m_de_medicion_porcentaje_humedad: 'M. de Medición % Humedad',
+    };
+    return fieldNames[key] || key;
+  }
+  //
   loadProductos(): void {
     this.productoService.getAll().subscribe(
       (data) => {
@@ -256,38 +412,5 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
         window.location.reload();
       });
     }
-  }
-
-  private normalizeHeader(header: string): string {
-    // Elimina espacios al inicio y al final, y convierte a minúsculas
-    header = header.trim().toLowerCase();
-
-    // Mapeo de encabezados
-    const headerMap: { [key: string]: string } = {
-      codigo: 'codigo',
-      producto: 'producto',
-      sabor: 'sabor',
-      'análisis organolépticos': 'analisis_organolepticos',
-      color: 'color',
-      'M. de Medición Color': 'm_de_medicion_color',
-      apariencia: 'apariencia',
-      'M. de Medición Apariencia': 'm_de_medicion_apariencia',
-      textura: 'textura',
-      'M. de Medición Textura': 'm_de_medicion_textura',
-      'Sabor Análisis': 'sabor_analisis',
-      'M. de Medición Sabor': 'm_de_medicion_sabor',
-      olor: 'olor',
-      'M. de Medición Olor': 'm_de_medicion_olor',
-      'análisis fisico quimico': 'analisis_fisico_quimico',
-      ph: 'ph',
-      'M. de Medición PH': 'm_de_medicion_ph',
-      Brix: 'brix',
-      'M. de Medición Brix': 'm_de_medicion_brix',
-      '% humedad': 'porcentaje_humedad',
-      'M. de Medición % Humedad': 'm_de_medicion_porcentaje_humedad',
-      is_enabled: 'is_enabled',
-    };
-
-    return headerMap[header] || header;
   }
 }
