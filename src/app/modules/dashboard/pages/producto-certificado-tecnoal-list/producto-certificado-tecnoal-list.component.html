@@ -85,6 +85,9 @@
                                 [ngClass]="{'text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300': producto.is_enabled, 'text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300': !producto.is_enabled}">
                           {{ producto.is_enabled ? 'Desactivar' : 'Activar' }}
                         </button>
+                        <button (click)="openPrintModal(producto)" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                          Imprimir
+                        </button>
                       </td>
                       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.codigo }}</td>
                       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-300">{{ producto.producto }}</td>
@@ -114,6 +117,205 @@
             </div>
           </div>
         </div>
+
+      <!-- Modal de impresión -->
+<div *ngIf="showPrintModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+  <div class="relative top-20 mx-auto p-5 border w-full max-w-4xl shadow-lg rounded-md bg-white dark:bg-gray-800">
+    <div class="mt-3 text-center print-section">
+      <div class="mx-auto max-w-4xl bg-white shadow-lg">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr>
+              <th rowspan="3" class="border border-gray-300 p-2 text-center font-bold">LOGO</th>
+              <th colspan="2" rowspan="3" class="border border-gray-300 p-2 text-center font-bold align-middle">CERTIFICADO DE ANÁLISIS (COA)</th>
+              <th class="border border-gray-300 p-2 text-left font-bold">CÓDIGO: GCA-F41</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2 text-left font-bold">VERSIÓN: 00</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2 text-left font-bold">FECHA: {{currentDate | date:'yyyy-MM-dd'}}</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th colspan="4" class="border border-gray-300 bg-neutral-500 py-2 text-center font-bold text-white">NOMBRE DEL PRODUCTO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="4" class="border-l border-r border-gray-300 p-2 text-center">
+                {{selectedProducto?.producto}}
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="4" class="border border-gray-300 bg-neutral-500 py-2 text-center font-bold text-white">INFORMACIÓN GENERAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 p-2 font-bold">Fecha elaboración</td>
+              <td colspan="3" class="border border-gray-300 p-2">{{currentDate | date:'yyyy-MM-dd'}}</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2 font-bold">Fecha de vencimiento</td>
+              <td colspan="3" class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2 font-bold">Lote</td>
+              <td colspan="3" class="border border-gray-300 p-2">{{selectedProducto?.codigo}}</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2 font-bold">Presentación</td>
+              <td colspan="3" class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2 font-bold">Unidades despachadas</td>
+              <td colspan="3" class="border border-gray-300 p-2"></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="4" class="border border-gray-300 bg-neutral-500 py-2 text-center font-bold text-white">ANÁLISIS ORGANOLÉPTICOS</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2">Características</th>
+              <th class="border border-gray-300 p-2">Método de medición</th>
+              <th class="border border-gray-300 p-2">Especificación</th>
+              <th class="border border-gray-300 p-2">Resultados</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 p-2">Color</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_color}}</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.color}}</td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2">Apariencia</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_apariencia}}</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.apariencia}}</td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2">Textura</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_textura}}</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.textura}}</td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2">Sabor</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_sabor}}</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.sabor_analisis}}</td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2">Olor</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_olor}}</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.olor}}</td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="4" class="border border-gray-300 bg-neutral-500 py-2 text-center font-bold text-white">ANÁLISIS FISICOQUÍMICOS</th>
+            </tr>
+            <tr>
+              <th class="border border-gray-300 p-2">Características</th>
+              <th class="border border-gray-300 p-2">Método de medición</th>
+              <th class="border border-gray-300">
+                <div>Especificación</div>
+                <div class="grid grid-cols-2">
+                  <div class="border-r border-t border-gray-300">Min</div>
+                  <div class="border-t border-gray-300">Max</div>
+                </div>
+              </th>
+              <th class="border border-gray-300 p-2">Resultados</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 p-2">PH</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_ph}}</td>
+              <td class="border border-gray-300">
+                <div class="grid grid-cols-2">
+                  <div class="border-r border-gray-300">{{selectedProducto?.ph}}</div>
+                  <div class=""></div>
+                </div>
+              </td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2">Brix</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_brix}}</td>
+              <td class="border border-gray-300">
+                <div class="grid grid-cols-2">
+                  <div class="border-r border-gray-300">{{selectedProducto?.brix}}</div>
+                  <div class=""></div>
+                </div>
+              </td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 p-2">% Humedad</td>
+              <td class="border border-gray-300 p-2">{{selectedProducto?.m_de_medicion_porcentaje_humedad}}</td>
+              <td class="border border-gray-300">
+                <div class="grid grid-cols-2">
+                  <div class="border-r border-gray-300">{{selectedProducto?.porcentaje_humedad}}</div>
+                  <div class=""></div>
+                </div>
+              </td>
+              <td class="border border-gray-300 p-2"></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="4" class="border border-gray-300 bg-neutral-500 py-2 text-center font-bold text-white">DATOS DEL FABRICANTE O ENVASADOR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="4" class="h-20 border border-gray-300 p-2">{{selectedProducto?.analisis_fisico_quimico}}</td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="4" class="border border-gray-300 bg-neutral-500 py-2 text-center font-bold text-white">RESPONSABLE DE CALIDAD</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border-b border-l border-gray-300 p-2 font-bold">NOMBRE:</td>
+              <td colspan="3" class="border-b border-r border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td class="border-b border-l border-gray-300 p-2 font-bold">FIRMA:</td>
+              <td colspan="3" class="border-b border-r border-gray-300 p-2"></td>
+            </tr>
+            <tr>
+              <td colspan="2" class="border-b border-l border-gray-300 p-2 font-bold">FECHA EMISIÓN CERTIFICADO:</td>
+              <td colspan="2" class="border-b border-r border-gray-300 p-2">{{currentDate | date:'yyyy-MM-dd'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="items-center px-4 py-3">
+        <button (click)="printCertificate()" class="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300">
+          Imprimir Certificado
+        </button>
+      </div>
+      <div class="items-center px-4 py-3">
+        <button (click)="closePrintModal()" class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-300">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
       <div *ngIf="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
         <div class="relative top-20 mx-auto p-5 border w-full max-w-3xl shadow-lg rounded-md bg-white dark:bg-gray-800">
           <div class="mt-3 text-center">

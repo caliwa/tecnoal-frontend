@@ -14,7 +14,10 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
   productos: ProductoCertificadoTecnoal[] = [];
   excelData: any[][] = [];
   showModal = false;
+  showPrintModal = false;
   productoForm: FormGroup;
+  selectedProducto: ProductoCertificadoTecnoal | null = null;
+  currentDate: Date = new Date();
 
   constructor(private productoService: ProductoCertificadoTecnoalService, private fb: FormBuilder) {
     this.productoForm = this.fb.group({
@@ -54,6 +57,21 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
     this.showModal = false;
     this.productoForm.reset();
   }
+
+  openPrintModal(producto: ProductoCertificadoTecnoal) {
+    this.selectedProducto = producto;
+    this.showPrintModal = true;
+  }
+
+  closePrintModal() {
+    this.showPrintModal = false;
+    this.selectedProducto = null;
+  }
+
+  printCertificate() {
+    window.print();
+  }
+
   onSubmit() {
     if (this.productoForm.valid) {
       const emptyFields = this.getEmptyFields();
@@ -112,7 +130,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
             confirmButtonColor: '#007bff',
           }).then(() => {
             this.closeModal();
-            this.loadProductos(); // Recargar la lista de productos
+            this.loadProductos();
           });
         },
         (error) => {
@@ -174,7 +192,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
     };
     return fieldNames[key] || key;
   }
-  //
+
   loadProductos(): void {
     this.productoService.getAll().subscribe(
       (data) => {
@@ -187,7 +205,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
           text: 'No se pudieron cargar los productos',
           icon: 'error',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#007bff', // Color azul
+          confirmButtonColor: '#007bff',
         });
       },
     );
@@ -201,7 +219,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
         text: 'No se puede actualizar el producto debido a un ID inválido',
         icon: 'error',
         confirmButtonText: 'OK',
-        confirmButtonColor: '#007bff', // Color azul
+        confirmButtonColor: '#007bff',
       });
       return;
     }
@@ -212,7 +230,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
       text: `¿Quieres ${action} este producto?`,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6', // Color azul
+      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, confirmar',
       cancelButtonText: 'Cancelar',
@@ -226,7 +244,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
               text: `El producto ha sido ${action}do.`,
               icon: 'success',
               confirmButtonText: 'OK',
-              confirmButtonColor: '#007bff', // Color azul
+              confirmButtonColor: '#007bff',
             });
           },
           (error) => {
@@ -236,9 +254,8 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
               text: 'Hubo un problema al actualizar el producto.',
               icon: 'error',
               confirmButtonText: 'OK',
-              confirmButtonColor: '#007bff', // Color azul
+              confirmButtonColor: '#007bff',
             });
-            // Revert the change in the local array
             producto.is_enabled = !producto.is_enabled;
           },
         );
@@ -265,14 +282,13 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
 
   uploadExcelData() {
     try {
-      // Verifica si hay datos en this.excelData
       if (!this.excelData || this.excelData.length === 0) {
         Swal.fire({
           title: 'Error',
           text: 'No se ha cargado ningún archivo Excel.',
           icon: 'error',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#007bff', // Color azul
+          confirmButtonColor: '#007bff',
         });
         return;
       }
@@ -282,11 +298,10 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
 
       console.log('Headers originales:', headers);
 
-      // Eliminar filas vacías
       data = data.filter((row) => row.some((cell) => cell !== null && cell !== ''));
 
       data = data.map((subArray) => {
-        return subArray.slice(0, -4); // Mantén todos los elementos excepto los últimos 4
+        return subArray.slice(0, -4);
       });
 
       console.log(data);
@@ -296,24 +311,22 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
           text: 'El archivo Excel está vacío o no tiene el formato correcto',
           icon: 'error',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#007bff', // Color azul
+          confirmButtonColor: '#007bff',
         });
         return;
       }
 
-      // Verifica que la cantidad de columnas coincida con el número de propiedades esperadas
       if (headers.length !== 21) {
         Swal.fire({
           title: 'Error',
           text: 'El archivo Excel no tiene el número correcto de columnas.',
           icon: 'error',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#007bff', // Color azul
+          confirmButtonColor: '#007bff',
         });
         return;
       }
 
-      // Mapear las filas a objetos ProductoCertificadoTecnoal
       const productos: ProductoCertificadoTecnoal[] = data.map((row) => {
         return {
           codigo: row[0],
@@ -351,7 +364,7 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
           text: 'No se encontraron productos válidos en el archivo Excel',
           icon: 'error',
           confirmButtonText: 'OK',
-          confirmButtonColor: '#007bff', // Color azul
+          confirmButtonColor: '#007bff',
         });
         return;
       }
@@ -379,9 +392,8 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
             text: message,
             icon: 'info',
             confirmButtonText: 'OK',
-            confirmButtonColor: '#007bff', // Color azul
+            confirmButtonColor: '#007bff',
           }).then(() => {
-            // Recargar la página cuando se cierre el modal
             window.location.reload();
           });
         },
@@ -392,9 +404,8 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
             text: 'Hubo un problema al procesar los productos.',
             icon: 'error',
             confirmButtonText: 'OK',
-            confirmButtonColor: '#007bff', // Color azul
+            confirmButtonColor: '#007bff',
           }).then(() => {
-            // Recargar la página incluso si hay un error
             window.location.reload();
           });
         },
@@ -406,9 +417,8 @@ export class ProductoCertificadoTecnoalListComponent implements OnInit {
         text: `Hubo un problema inesperado: ${error || 'Error desconocido.'}`,
         icon: 'error',
         confirmButtonText: 'OK',
-        confirmButtonColor: '#007bff', // Color azul
+        confirmButtonColor: '#007bff',
       }).then(() => {
-        // Recargar la página incluso si hay un error
         window.location.reload();
       });
     }
